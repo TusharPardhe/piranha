@@ -1,0 +1,23 @@
+{
+  "name": "piranha",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tushar Pardhe <tpardhe@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "dist/",
+    "images/",
+    "snap.manifest.json"
+  ],
+  "scripts": {
+    "build:clean": "yarn clean && yarn build",
+    "build:website": "node ./scripts/build-website.js",
+    "build": "mm-snap build",
+    "serve": "mm-snap serve",
+    "clean": "rimraf 'dist/*'"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

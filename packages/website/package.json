@@ -1,13 +1,27 @@
 {
-  "name": "website",
-  "private": true,
+  "name": "snap_website",
   "version": "0.0.1",
-  "type": "module",
-  "author": "Tushar Pardhe <tpardhe@gmail.com>",
-  "license": "MIT",
+  "private": false,
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "scripts": {
-    "dev": "vite --port 3000",
-    "build": "vite build",
+    "start": "vite --port 3000",
+    "build": "vite build --emptyOutDir",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -30,7 +44,7 @@
     "react-date-picker": "^8.4.0",
     "react-datetime-picker": "^3.5.0",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.2",
+    "react-router-dom": "6",
     "react-scripts": "5.0.0",
     "react-slick": "^0.28.1",
     "react-toastify": "^9.0.5",
@@ -44,6 +58,8 @@
     "xrpl": "^2.3.1"
   },
   "devDependencies": {
+    "@metamask/eslint-config": "^10.0.0",
+    "@metamask/eslint-config-nodejs": "^10.0.0",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",

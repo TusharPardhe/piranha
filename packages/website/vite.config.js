@@ -15,12 +15,7 @@ const viteConfig = ({ mode }) => {
 
   return defineConfig({
     root: 'src',
-    plugins: [
-      react(),
-      EnvironmentPlugin('all'),
-      viteStaticCopy({}),
-      removeConsole(),
-    ],
+    plugins: [react(), EnvironmentPlugin('all'), removeConsole()],
     resolve: {
       extensions: ['*', '.js', '.jsx'],
       alias: [

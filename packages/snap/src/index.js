@@ -11,29 +11,37 @@ async function getParticularWalletKey(username) {
   return values?.[username] ?? 'USERNAME_NOT_FOUND';
 }
 
-async function saveNewValueInMetamask(value) {
+async function saveNewValueInMetamask({ username, seed }) {
   const oldValues = await getValuesFromMetaMask();
 
-  if (oldValues?.[value.username]) return 'USERNAME_ALREADY_EXISTS';
+  if (oldValues?.[username]) {
+    return 'USERNAME_ALREADY_EXISTS';
+  }
 
   await wallet.request({
     method: 'snap_manageState',
-    params: ['update', { passwords: { ...oldValues, ...value } }],
+    params: ['update', { passwords: { ...oldValues, [username]: seed } }],
   });
+
+  return 'SUCCESS';
 }
 
-const onRpcRequest = async ({ origin, request }) => {
+module.exports.onRpcRequest = async ({ origin, request }) => {
   switch (request.method) {
     case 'save_password': {
-      const { username, secret } = request;
-      await saveNewValueInMetamask({ username, secret });
-      return 'DONE';
+      const { username, seed } = request;
+      const response = await saveNewValueInMetamask({ username, seed });
+      return response;
     }
     case 'search': {
       const { username } = request;
       return getParticularWalletKey(username);
     }
-    case 'get_password': {
+    case 'get_stored_accounts': {
+      const data = await getValuesFromMetaMask();
+      return data ? Object.keys(data).map((k) => k) : [];
+    }
+    case 'get_seed': {
       const { username } = request;
       const state = await getValuesFromMetaMask();
 
@@ -66,5 +74,3 @@ const onRpcRequest = async ({ origin, request }) => {
     }
   }
 };
-
-module.exports = onRpcRequest;
